@@ -1,0 +1,21 @@
+Community for each sport
+quiz to detremine the best sport for you
+meal plan for each sport
+motivation plan for each sport
+progress tracker
+ranked sports based on country/region
+
+problem : "People who want to play a sport and don't know where to start, disabled & injured people who want to improve thier health, 
+and they don't find the suitable diet for this sport, and they suffer lack of motivation, and in thier area they don't know the 
+popular sports"
+
+"
+A web app to choose the best sport based on your prefrence and quailities and your regionfor you and then prepare the sitable
+diet for you and for disabled people & injured we will offer the right workout that fit thier abilities 
+and make a progreess tracker to motivate them
+"
+
+"Day 1":
+problems we faced :
+We dicided to make a Community for each sport to help, but we've cancelled the idea because it will consume the time
+We decided to write about 17 questions but we summarize them to be just 11 to make it more easy for ranked

@@ -1,0 +1,3 @@
+Technologies Used :
+HTML, CSS, JavaScript, React, NextJs, Tailwind CSS
+

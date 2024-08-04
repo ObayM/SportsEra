@@ -5,7 +5,7 @@ import { ArrowRight, Dumbbell, Utensils, Trophy } from 'lucide-react';
 
 const LandingPage = () => {
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div style={{ minHeight: 'calc(100vh - (88px + 72px))' }} className="bg-gray-100">
       <Head>
         <title>Sports Era - Personalized Nutrition and Motivation</title>
         <meta name="description" content="Discover your ideal sport, get personalized meal plans, and stay motivated with Sports Era." />
@@ -66,11 +66,6 @@ const LandingPage = () => {
         </section>
       </main>
 
-      <footer className="bg-gray-800 text-white py-8 mt-16">
-        <div className="container mx-auto px-4 text-center">
-          <p>&copy; 2024 Sports Era. All rights reserved.</p>
-        </div>
-      </footer>
     </div>
   );
 };
