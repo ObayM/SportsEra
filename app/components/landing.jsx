@@ -80,7 +80,7 @@ const FeatureCard = ({ icon, title, description }) => (
 
 const TestimonialCard = ({ quote, author }) => (
   <div className="bg-white rounded-lg shadow p-6">
-    <p className="text-gray-600 italic mb-4">"{quote}"</p>
+    <p className="text-gray-600 italic mb-4">&quot;{quote}&quot;</p>
     <p className="font-semibold">- {author}</p>
   </div>
 );
