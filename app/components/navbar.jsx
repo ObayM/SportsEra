@@ -30,7 +30,7 @@ const Navbar = () => {
         </button>
         
         {/* Sign Up / Login button */}
-        <Link href="/signup" className="hidden md:block bg-white text-blue-600 px-4 py-2 rounded-full font-semibold hover:bg-blue-100 transition duration-300">
+        <Link href="/auth" className="hidden md:block bg-white text-blue-600 px-4 py-2 rounded-full font-semibold hover:bg-blue-100 transition duration-300">
           Sign Up / Login
         </Link>
       </div>
@@ -42,7 +42,7 @@ const Navbar = () => {
           <NavLink href="/meals" mobile>Meal Plans</NavLink>
           <NavLink href="/motivation" mobile>Motivation</NavLink>
           <NavLink href="/profile" mobile>Profile</NavLink>
-          <Link href="/signup" className="block bg-white text-blue-600 px-4 py-2 rounded-full font-semibold hover:bg-blue-100 transition duration-300 text-center mt-2">
+          <Link href="/auth" className="block bg-white text-blue-600 px-4 py-2 rounded-full font-semibold hover:bg-blue-100 transition duration-300 text-center mt-2">
             Sign Up / Login
           </Link>
         </div>
