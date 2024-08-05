@@ -1,101 +1,68 @@
 'use client'
+
 import React, { useState } from 'react';
-import { Mail, Lock, User, ArrowRight } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import Login from '../components/LoginComponent';
+import Signup from '../components/SignupComponent';
+
+const TabButton = ({ active, onClick, children }) => (
+  <button
+    className={`px-4 py-2 rounded-t-lg font-semibold transition-colors duration-300 ${
+      active ? 'bg-white text-purple-600' : 'bg-purple-100 text-purple-400 hover:bg-purple-200'
+    }`}
+    onClick={onClick}
+  >
+    {children}
+  </button>
+);
 
 const AuthPage = () => {
-  const [isSignUp, setIsSignUp] = useState(true);
+  const [activeTab, setActiveTab] = useState('login');
 
+  const handleGoogleSignIn = () => {
+    // Implement Google Sign-In logic here
+    console.log('Sign in with Google');
+  };
   return (
-    <div style={{ minHeight: 'calc(100vh - (88px + 72px))' }} className="bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center p-4">
-      <div className="bg-white rounded-lg shadow-xl w-full max-w-md overflow-hidden">
-        <div className="flex text-lg font-semibold">
-          <button
-            className={`flex-1 py-4 transition-colors duration-300 ${
-              isSignUp ? 'bg-blue-500 text-white' : 'bg-gray-100 text-gray-700'
-            }`}
-            onClick={() => setIsSignUp(true)}
-          >
+    <div style={{ minHeight: 'calc(100vh - (88px + 72px))' }} className="bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center p-4">
+      <div className="bg-white rounded-lg shadow-xl overflow-hidden w-full max-w-md">
+        <div className="flex justify-center space-x-2 p-4 bg-purple-50">
+          <TabButton active={activeTab === 'login'} onClick={() => setActiveTab('login')}>
+            Login
+          </TabButton>
+          <TabButton active={activeTab === 'signup'} onClick={() => setActiveTab('signup')}>
             Sign Up
-          </button>
-          <button
-            className={`flex-1 py-4 transition-colors duration-300 ${
-              !isSignUp ? 'bg-blue-500 text-white' : 'bg-gray-100 text-gray-700'
-            }`}
-            onClick={() => setIsSignUp(false)}
-          >
-            Sign In
-          </button>
+          </TabButton>
         </div>
-        <div className="p-8">
-          <h2 className="text-3xl font-bold text-center mb-8">
-            {isSignUp ? 'Create Your Account' : 'Welcome Back'}
-          </h2>
-          <form>
-            {isSignUp && (
-              <div className="mb-6">
-                <label htmlFor="name" className="block text-gray-700 mb-2">Full Name</label>
-                <div className="relative">
-                  <input
-                    type="text"
-                    id="name"
-                    className="w-full px-4 py-3 rounded-lg bg-gray-100 border-2 border-gray-200 focus:border-blue-500 focus:bg-white focus:outline-none pl-12"
-                    placeholder="John Doe"
-                    required
-                  />
-                  <User className="absolute left-3 top-3 text-gray-400" size={20} />
-                </div>
-              </div>
-            )}
-            <div className="mb-6">
-              <label htmlFor="email" className="block text-gray-700 mb-2">Email Address</label>
-              <div className="relative">
-                <input
-                  type="email"
-                  id="email"
-                  className="w-full px-4 py-3 rounded-lg bg-gray-100 border-2 border-gray-200 focus:border-blue-500 focus:bg-white focus:outline-none pl-12"
-                  placeholder="you@example.com"
-                  required
-                />
-                <Mail className="absolute left-3 top-3 text-gray-400" size={20} />
-              </div>
-            </div>
-            <div className="mb-6">
-              <label htmlFor="password" className="block text-gray-700 mb-2">Password</label>
-              <div className="relative">
-                <input
-                  type="password"
-                  id="password"
-                  className="w-full px-4 py-3 rounded-lg bg-gray-100 border-2 border-gray-200 focus:border-blue-500 focus:bg-white focus:outline-none pl-12"
-                  placeholder="••••••••"
-                  required
-                />
-                <Lock className="absolute left-3 top-3 text-gray-400" size={20} />
-              </div>
-            </div>
-            <button
-              type="submit"
-              className="w-full bg-blue-500 text-white py-3 rounded-lg font-semibold hover:bg-blue-600 transition-colors duration-300 flex items-center justify-center"
-            >
-              {isSignUp ? 'Create Account' : 'Sign In'}
-              <ArrowRight className="ml-2" size={20} />
-            </button>
-          </form>
-          {!isSignUp && (
-            <p className="text-center mt-4 text-gray-600">
-              <a href="#" className="text-blue-500 hover:underline">Forgot your password?</a>
-            </p>
-          )}
-          <div className="mt-8 text-center">
-            <p className="text-gray-600">
-              {isSignUp ? 'Already have an account?' : "Don't have an account?"}
-              <button
-                className="text-blue-500 hover:underline ml-1"
-                onClick={() => setIsSignUp(!isSignUp)}
-              >
-                {isSignUp ? 'Sign In' : 'Sign Up'}
-              </button>
-            </p>
+        
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeTab}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
+            className="p-6"
+          >
+            {activeTab === 'login' ? <Login /> : <Signup />}
+          </motion.div>
+        </AnimatePresence>
+        
+        <div className="px-6 pb-6">
+          <div className="relative flex items-center justify-center text-sm my-4">
+            <span className="bg-white px-2 text-gray-500">Or continue with</span>
+            <div className="absolute w-full border-t border-gray-300" />
           </div>
+           <div className="mt-6">
+             <motion.button
+               whileHover={{ scale: 1.05 }}
+               whileTap={{ scale: 0.95 }}
+               onClick={handleGoogleSignIn}
+               className="w-full flex items-center justify-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+             >
+               Sign in with Google
+             </motion.button>
+           </div>
         </div>
       </div>
     </div>

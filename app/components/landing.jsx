@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Activity, Zap, Target, Users, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
+
 const HomePage = () => {
   const [activeFeature, setActiveFeature] = useState(0);
 
@@ -23,7 +25,7 @@ const HomePage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-blue-900 to-blue-700 text-white">
       <header className="pt-20 pb-32 px-4 sm:px-6 lg:px-8">
-        <motion.h1 
+      <motion.h1 
           initial={{ opacity: 0, y: -50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
