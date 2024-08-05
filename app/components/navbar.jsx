@@ -39,7 +39,7 @@ const Navbar = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              SportEra
+              SportsEra
             </motion.span>
           </Link>
 
@@ -47,7 +47,7 @@ const Navbar = () => {
           <div className="hidden md:flex space-x-4">
             <NavLink href="/" icon={Home}>Home</NavLink>
             <NavLink href="/quiz" icon={Dumbbell}>Quiz</NavLink>
-            <NavLink href="/meal-plan" icon={Utensils}>Meal Plan</NavLink>
+            <NavLink href="/mealplanner" icon={Utensils}>Meal Plan</NavLink>
             <NavLink href="/profile" icon={User}>Profile</NavLink>
           </div>
 
@@ -72,7 +72,7 @@ const Navbar = () => {
           <div className="flex flex-col space-y-2">
             <NavLink href="/" icon={Home}>Home</NavLink>
             <NavLink href="/quiz" icon={Dumbbell}>Quiz</NavLink>
-            <NavLink href="/meal-plan" icon={Utensils}>Meal Plan</NavLink>
+            <NavLink href="/mealplanner" icon={Utensils}>Meal Plan</NavLink>
             <NavLink href="/profile" icon={User}>Profile</NavLink>
           </div>
         </motion.div>
