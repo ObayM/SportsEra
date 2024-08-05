@@ -125,7 +125,7 @@ const HomePage = () => {
                 whileHover={{ scale: 1.05 }}
                 className="bg-white p-6 rounded-xl shadow-lg"
               >
-                <p className="text-lg mb-4">"{story.quote}"</p>
+                <p className="text-lg mb-4">&quot;{story.quote}&quot;</p>
                 <div className="font-semibold">{story.name}</div>
                 <div className="text-blue-600">{story.sport}</div>
               </motion.div>
