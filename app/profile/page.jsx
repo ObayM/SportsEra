@@ -1,6 +1,6 @@
 import React from 'react';
 import Auth from '../auth/page.jsx'
-const isLoggedIn = false;
+const isLoggedIn = true;
 
 const ProfilePage = () =>{
     return(
