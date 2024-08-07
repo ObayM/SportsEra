@@ -195,7 +195,7 @@ const ProfilePage = () => {
           <h3 className="text-xl font-semibold text-gray-900 mb-4">Quick Tips</h3>
           <ul className="list-disc pl-5 space-y-2 text-gray-600">
             <li>Stay hydrated! Drink water before, during, and after your workouts.</li>
-            <li>Don't forget to warm up and cool down to prevent injuries.</li>
+            <li>Don&lsquo;t forget to warm up and cool down to prevent injuries.</li>
             <li>Mix up your routine to keep things interesting and challenge different muscle groups.</li>
             <li>Get enough sleep to help your body recover and perform at its best.</li>
           </ul>
