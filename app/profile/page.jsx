@@ -96,7 +96,7 @@ const ProfilePage = () => {
           <motion.div variants={itemVariants} className="md:flex-shrink-0 bg-blue-600 p-8 text-white">
             <User className="w-24 h-24 mx-auto mb-4" />
             <h2 className="text-2xl font-bold text-center">Obay Rashad</h2>
-            <p className="text-blue-200 text-center">Fitness Enthusiast</p>
+            <p className="text-blue-200 text-center">Healthy Man</p>
           </motion.div>
           <div className="p-8">
             <motion.div variants={itemVariants} className="uppercase tracking-wide text-sm text-indigo-500 font-semibold mb-1">Your Chosen Sport</motion.div>

@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { motion } from 'framer-motion';
-import { Save } from 'lucide-react';
+import { Save, RefreshCw } from 'lucide-react';
 
 const QuizResults = () => {
   const [recommendations, setRecommendations] = useState('');
@@ -27,6 +27,13 @@ const QuizResults = () => {
       setIsSaved(true);
       setTimeout(() => setIsSaved(false), 3000);
     }
+  };
+
+  const handleRetakeQuiz = () => {
+    localStorage.removeItem('chosenSport');
+    setChosenSport('');
+    // You might want to navigate to the quiz page or reset other relevant state here
+    alert('Quiz reset! You can now retake the quiz.');
   };
 
   return (
@@ -104,6 +111,23 @@ const QuizResults = () => {
           ) : (
             <p className="text-center text-gray-500">Loading recommendations...</p>
           )}
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6, duration: 0.5 }}
+          className="mt-8 flex justify-center"
+        >
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={handleRetakeQuiz}
+            className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-200"
+          >
+            <RefreshCw className="h-5 w-5 mr-2" aria-hidden="true" />
+            Retake the Quiz
+          </motion.button>
         </motion.div>
       </motion.div>
     </div>
