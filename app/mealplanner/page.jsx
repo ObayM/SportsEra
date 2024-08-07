@@ -1,16 +1,28 @@
+
+
 'use client'
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { PlusCircle, Calendar, ChevronLeft, ChevronRight, X } from 'lucide-react';
 
 const mealTypes = ['Breakfast', 'Lunch', 'Dinner', 'Snack'];
-const daysOfWeek = [ 'Saturday', 'Sunday','Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+const daysOfWeek = ['Saturday', 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+const sports = ['Running', 'Swimming', 'Cycling', 'Weightlifting', 'Basketball', 'Soccer'];
 
-const MealPlannerPage = () => {
+const MealPlannerWithGemini = () => {
   const [currentWeek, setCurrentWeek] = useState(new Date());
   const [activeDay, setActiveDay] = useState(daysOfWeek[0]);
   const [meals, setMeals] = useState({});
+  const [chosenSport, setChosenSport] = useState(null);
+
+  const [isLoading, setIsLoading] = useState(false);
+  
+  useEffect(() => {
+    const sport = localStorage.getItem('chosenSport');
+    setChosenSport(sport);
+  }, []);
+  
 
   const addMeal = (day, mealType) => {
     const mealName = prompt(`Enter ${mealType} for ${day}:`);
@@ -24,17 +36,6 @@ const MealPlannerPage = () => {
       }));
     }
   };
-
-  const removeMeal = (day, mealType, index) => {
-    setMeals(prevMeals => ({
-      ...prevMeals,
-      [day]: {
-        ...prevMeals[day],
-        [mealType]: prevMeals[day][mealType].filter((_, i) => i !== index)
-      }
-    }));
-  };
-
   const changeWeek = (increment) => {
     setCurrentWeek(prevWeek => {
       const newWeek = new Date(prevWeek);
@@ -51,12 +52,58 @@ const MealPlannerPage = () => {
     return `${start.toLocaleDateString()} - ${end.toLocaleDateString()}`;
   };
 
+  const generateMealPlan = async () => {
+    if (!chosenSport) {
+      alert('Please Take the Quiz first');
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      const response = await fetch('/api/generate-meal-plan', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ sport: chosenSport }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to generate meal plan');
+      }
+
+      const data = await response.json();
+      
+      // Assuming the API returns an object with meal types as keys
+      setMeals(prevMeals => ({
+        ...prevMeals,
+        [activeDay]: data.mealPlan,
+      }));
+    } catch (error) {
+      console.error('Error generating meal plan:', error);
+      alert('Failed to generate meal plan. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const removeMeal = (day, mealType, index) => {
+    setMeals(prevMeals => ({
+      ...prevMeals,
+      [day]: {
+        ...prevMeals[day],
+        [mealType]: prevMeals[day][mealType].filter((_, i) => i !== index)
+      }
+    }));
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-400 to-blue-600 p-4 sm:p-6">
       <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-xl overflow-hidden">
         <div className="p-4 sm:p-6">
           <div className="flex flex-col sm:flex-row justify-between items-center mb-6">
-            <h1 className="text-3xl font-bold text-blue-600 mb-4 sm:mb-0">Meal Planner</h1>
+            <h1 className="text-3xl font-bold text-blue-600 mb-4 sm:mb-0">Sports Meal Planner</h1>
             <div className="flex items-center space-x-4">
               <button onClick={() => changeWeek(-1)} className="p-2 rounded-full bg-blue-100 text-blue-600 hover:bg-blue-200">
                 <ChevronLeft size={24} />
@@ -69,6 +116,17 @@ const MealPlannerPage = () => {
                 <ChevronRight size={24} />
               </button>
             </div>
+          </div>
+
+          <div className="mb-6 flex flex-col sm:flex-row items-center justify-between">
+
+            <button
+              onClick={generateMealPlan}
+              disabled={isLoading}
+              className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition-colors duration-300"
+            >
+              {isLoading ? 'Generating...' : 'Generate Meal Plan'}
+            </button>
           </div>
 
           <div className="mb-6 overflow-x-auto">
@@ -86,7 +144,6 @@ const MealPlannerPage = () => {
               ))}
             </div>
           </div>
-
           <AnimatePresence mode="wait">
             <motion.div
               key={activeDay}
@@ -127,4 +184,4 @@ const MealPlannerPage = () => {
   );
 };
 
-export default MealPlannerPage;
+export default MealPlannerWithGemini;

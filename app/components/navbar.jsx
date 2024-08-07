@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { Menu, X, Home, Dumbbell, Utensils, User } from 'lucide-react';
+import {Mail, Menu, X, Home, Dumbbell, Utensils, User } from 'lucide-react';
 
 const NavLink = ({ href, children, icon: Icon }) => {
   const pathname = usePathname();
@@ -74,6 +74,8 @@ const Navbar = () => {
             <NavLink href="/quiz" icon={Dumbbell}>Quiz</NavLink>
             <NavLink href="/mealplanner" icon={Utensils}>Meal Plan</NavLink>
             <NavLink href="/profile" icon={User}>Profile</NavLink>
+            <NavLink href="/contact-us" icon={Mail}>Contact Us</NavLink>
+
           </div>
         </motion.div>
       </div>

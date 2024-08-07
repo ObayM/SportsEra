@@ -1,7 +1,8 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { ChevronRight, ChevronLeft, Send } from 'lucide-react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation'
 
 const questions = [
   {
@@ -91,6 +92,7 @@ const questions = [
 const QuizPage = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState({});
+  const router = useRouter();
 
   const handleAnswer = (value) => {
     setAnswers({ ...answers, [questions[currentQuestion].id]: value });
@@ -108,22 +110,44 @@ const QuizPage = () => {
     }
   };
 
+  useEffect(() => {
+    const sport = localStorage.getItem('chosenSport');
+    if (sport){
+      router.push('/quizResults')
+    }  
+  })
+
   const handleSubmit = async () => {
-    // Here you would typically send the answers to your API
-    console.log("Submitting answers:", answers);
-    
-    // Example API call (replace with your actual API endpoint)
-    // try {
-    //   const response = await fetch('https://api.sportsera.com/quiz', {
-    //     method: 'POST',
-    //     headers: { 'Content-Type': 'application/json' },
-    //     body: JSON.stringify(answers)
-    //   });
-    //   const result = await response.json();
-    //   console.log(result);
-    // } catch (error) {
-    //   console.error('Error submitting quiz:', error);
-    // }
+    try {
+      // Prepare the data to send to the Gemini API
+      const prompt = `Based on the following quiz answers, suggest the best sports for this person:
+      ${Object.entries(answers).map(([id, answer]) => {
+        const question = questions.find(q => q.id === parseInt(id));
+        return `${question.text}: ${answer}`;
+      }).join('\n')}`;
+
+      // Make a request to your backend API that will interact with Gemini
+      const response = await fetch('/api/getSportRecommendations', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prompt })
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to get recommendations');
+      }
+
+      const recommendations = await response.json();
+
+      // Store the recommendations in localStorage
+      localStorage.setItem('sportRecommendations', JSON.stringify(recommendations));
+
+      // Navigate to the results page
+      router.push('/quizResults');
+    } catch (error) {
+      console.error('Error submitting quiz:', error);
+      // Handle the error (e.g., show an error message to the user)
+    }
   };
 
   const renderQuestion = () => {
@@ -203,13 +227,11 @@ const QuizPage = () => {
             </button>
           ) : (
             <button
-              onClick={handleSubmit}
-              className="flex items-center px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
-            >
-              <Link href="/quizResults">
-              Submit <Send size={20} className="ml-2" />
-              </Link>
-            </button>
+            onClick={handleSubmit}
+            className="flex items-center px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
+          >
+            Submit <Send size={20} className="ml-2" />
+          </button>
           )}
         </div>
       </div>
