@@ -1,5 +1,3 @@
-
-
 'use client'
 
 import React, { useState, useEffect } from 'react';
@@ -8,7 +6,6 @@ import { PlusCircle, Calendar, ChevronLeft, ChevronRight, X } from 'lucide-react
 
 const mealTypes = ['Breakfast', 'Lunch', 'Dinner', 'Snack'];
 const daysOfWeek = ['Saturday', 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
-const sports = ['Running', 'Swimming', 'Cycling', 'Weightlifting', 'Basketball', 'Soccer'];
 
 const MealPlannerWithGemini = () => {
   const [currentWeek, setCurrentWeek] = useState(new Date());
@@ -123,7 +120,7 @@ const MealPlannerWithGemini = () => {
             <button
               onClick={generateMealPlan}
               disabled={isLoading}
-              className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition-colors duration-300"
+              className="px-4 py-2 bg-indigo-500 text-white rounded-md hover:bg-indigo-600 transition-colors duration-300"
             >
               {isLoading ? 'Generating...' : 'Generate Meal Plan'}
             </button>
